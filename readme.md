@@ -5,6 +5,7 @@
 ```
 NodeJS v16.15.0
 ```
+Nota*:  npm install nodemon --global (Para trabajar en modo desarrollo)
 
 ## Ejecucion
 ```
@@ -70,7 +71,8 @@ RESPONSE:
 ```
 URL     : /api/v1/products
 METHOD  : POST
-PARAMS  : 
+PARAMS  : None
+BODY    : 
 {
     "id": 4,
     "name": "product 4",
@@ -81,6 +83,7 @@ PARAMS  :
 RESPONSE:
 {
     "status": "success",
+    "message": "Producto adicionado satisfactoriamente",
     "data": {
         "products": [
             {
@@ -112,4 +115,68 @@ RESPONSE:
 }
 ```
 
+### Editar un producto
+```
+URL     : /api/v1/products/:id
+METHOD  : PUT
+PARAMS  : id
+BODY    :
+{
+    "id": 2,
+    "name": "product 2 editado",
+    "price": 12.6,
+    "category": "cat2"
+}
+RESPONSE:
+{
+    "status": "success",
+    "message": "Producto actualizado satisfactoriamente",
+    "data": {
+        "products": [
+            {
+                "id": 1,
+                "name": "product 1",
+                "price": 10.5,
+                "category": "cat1"
+            },
+            {
+                "id": 2,
+                "name": "product 2 editado",
+                "price": 12.6,
+                "category": "cat2"
+            },
+            {
+                "id": 3,
+                "name": "product 3",
+                "price": 30.5,
+                "category": "cat1"
+            },
+            {
+                "id": 4,
+                "name": "product 4",
+                "price": 10.5,
+                "category": "cat1"
+            }
+        ]
+    }
+}
+```
+
+### Eliminar un producto
+```
+URL     : /api/v1/products/:id
+METHOD  : DELETE
+PARAMS  : id
+RESPONSE:
+{
+    "status": "success",
+    "message": "Producto eliminado satisfactoriamente",
+    "data": {
+        "id": 3,
+        "name": "product 3",
+        "price": 30.5,
+        "category": "cat1"
+    }
+}
+```
 
