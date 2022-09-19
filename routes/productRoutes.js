@@ -1,5 +1,6 @@
 const express = require("express");
 const productController = require("./../controllers/productController");
+const authController = require("./../controllers/authController");
 const productRouter = express.Router();
 
 /**
@@ -7,10 +8,13 @@ const productRouter = express.Router();
  */
 productRouter
 	.route("/")
+	.all(authController.protect)
 	.get(productController.getAllProducts)
 	.post(productController.addProduct);
-productRouter.route("/:id").get(productController.getProductById);
-productRouter.route("/:id").put(productController.editProduct);
-productRouter.route("/:id").delete(productController.deleteProduct);
+productRouter.route("/:id")
+	.all(authController.protect)
+	.get(productController.getProductById)
+	.put(productController.editProduct)
+	.delete(productController.deleteProduct);
 
 module.exports = productRouter;
