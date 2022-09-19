@@ -64,24 +64,16 @@ exports.getProductById = catchAsync(async(req, res) => {
  * @param {*} res 
  */
 exports.editProduct = (req, res) => {
-	const foundProduct = products.find((p) => p.id == req.params.id);
-	if (foundProduct) {
-		const indexProduct = products.indexOf(foundProduct);
-		if (indexProduct > -1) {
-			products[indexProduct] = req.body;
-			fs.writeFileSync(`${__dirname}/../data/products.json`, JSON.stringify(products));
-
-			return res.status(202).json({
-				status: "success",
-				message: "Producto actualizado satisfactoriamente",
-				data: {
-					products
-				},
-			});
-		}
-	} 
-	res.status(404).json({
-		status: "not found",
+	const id = req.params.id
+  	const body = req.body
+ 	const product = await Product.findOneAndUpdate(id, body)
+  
+	res.status(200).json({
+		status: "success",
+		message: "Producto modificado correctamente",
+		data: {
+			product: product
+		},
 	});
 }
 
@@ -91,22 +83,14 @@ exports.editProduct = (req, res) => {
  * @param {*} res 
  */
 exports.deleteProduct = (req, res) => {
-	const foundProduct = products.find((p) => p.id == req.params.id);
-
-	if (foundProduct) {	
-		const indexProduct = products.indexOf(foundProduct);
-		if (indexProduct > -1){
-			products.splice(indexProduct, 1);
-			fs.writeFileSync(`${__dirname}/../data/products.json`, JSON.stringify(products));
-			
-			return res.status(202).json({
-				status: "success",
-				message: "Producto eliminado satisfactoriamente",
-				data: foundProduct,
-			});
-		}  
-	}
-	res.status(201).json({
-		status: "not found",
+	const id = req.params.id
+  	const product = await Product.findOneAndDelete(id)
+  
+	res.status(200).json({
+		status: "deleted File",
+		message: "Producto eliminado satisfactoriamente",
+		data: {
+			product,
+		},
 	});
 }
