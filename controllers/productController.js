@@ -63,7 +63,7 @@ exports.getProductById = catchAsync(async(req, res) => {
  * @param {*} req 
  * @param {*} res 
  */
-exports.editProduct = (req, res) => {
+exports.editProduct = catchAsync(async(req, res) => {
 	const id = req.params.id
   	const body = req.body
  	const product = await Product.findOneAndUpdate(id, body)
@@ -75,14 +75,14 @@ exports.editProduct = (req, res) => {
 			product: product
 		},
 	});
-}
+});
 
 /**
  * Eliminar un producto
  * @param {*} req 
  * @param {*} res 
  */
-exports.deleteProduct = (req, res) => {
+exports.deleteProduct = catchAsync(async(req, res) => {
 	const id = req.params.id
   	const product = await Product.findOneAndDelete(id)
   
@@ -93,4 +93,4 @@ exports.deleteProduct = (req, res) => {
 			product,
 		},
 	});
-}
+});
