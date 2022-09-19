@@ -38,6 +38,7 @@ const createSendToken = (user, statusCode, res) => {
 exports.login = catchAsync(async (req, res, next) => {
     let { userName, password } = req.body;
     password = crypto.createHash("sha256").update(password).digest("hex");
+    console.log(password);
 
     // 1) Check if email and password exist
     if (!userName || !password) {

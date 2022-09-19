@@ -5,7 +5,7 @@ const userRouter = express.Router();
 //routes
 userRouter
     .route("/")
-    //.get(productController.getAllProducts)
+    .get(userController.getAllUsers)
     .post(userController.addUser);
     //productRouter.route("/:id").get(productController.getProductById);
 
